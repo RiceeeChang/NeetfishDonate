@@ -9,9 +9,10 @@
 
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" />
   <link href='https://fonts.googleapis.com/css?family=Roboto:500,300,700,400' rel='stylesheet' type='text/css'>
-  <link href="css/main.css" rel="stylesheet" />
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+  <script src="https://cdn.rawgit.com/gdi2290/angular-websocket/v1.0.9/angular-websocket.min.js"></script>
 </head>
 <body ng-app="myApp">
   <nav class="navbar navbar-inverse " role="navigation">
@@ -35,33 +36,33 @@
         <!-- donate remain money -->
         <div class="row">
           <div class="col-md-6">
-            <strong><p class="text-right" style="font-size: 196px"><small style="font-size: 64px">remain:</small>$</p></strong>
+            <strong><p class="text-right" style="font-size: 196px"><small style="font-size: 64px">remain: </small>$</p></strong>
           </div>
           <div class="col-md-6">
-            <strong><p class="text-left" style="font-size: 196px; color: #00008b">{{ totalmoney }}</p></strong>
+            <strong><p class="text-left" style="font-size: 196px; color: #00008b">{{ donateMsg.totalmoney }}</p></strong>
           </div>
         </div>
 
         <!-- donate form -->
         <div class="row">
           <div class="col-lg-offset-3 col-lg-9"><center>
-            <form class="form-horizontal" role="form" >
+            <form class="form-horizontal" role="form" ng-submit="submit()" ng-controller="SubmitController">
               <div class="form-group">
                 <label class="col-sm-4 control-label">Name</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" placeholder="安安~你的名字" />
+                  <input type="text" name="name" ng-model="dname" class="form-control" placeholder="安安~你的名字" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-4 control-label">Donate Amount</label>
                 <div class="col-sm-5">
-                  <input type="text" class="form-control" placeholder="給錢 快給錢" />
+                  <input type="text" name="money" ng-model="money" class="form-control" placeholder="給錢 快給錢" />
                 </div>
               </div>
               <div class="form-group">
                 <label class="col-sm-4 control-label">Donate Message</label>
                 <div class="col-sm-5">
-                  <textarea class="form-control" rows="3" placeholder="給你三十字個講垃圾話"></textarea>
+                  <textarea name="msg" ng-model="msg" class="form-control" rows="3" placeholder="給你三十字個講垃圾話"></textarea>
                 </div>
               </div>
               <input type="submit" class="btn btn-default" value="Donate" />
@@ -80,7 +81,7 @@
       <div class="col-lg-3">
         <center>
           <h2>贊助者排名</h2>
-          <ul class="list-group" ng-repeat="donater in donaters">
+          <ul class="list-group" ng-repeat="donater in donateMsg.donaters">
             <li class="list-group-item">
             <p style="font-size: 20px"><strong>{{ donater.index }}.</strong> {{ donater.name }} NT{{ donater.money | currency}}</p>
             <p>{{ donater.msg }}</p>
@@ -102,5 +103,8 @@
 <script src="js/app.js"></script>
 <!-- Controllers -->
 <script src="js/controllers/MainController.js"></script>
+<script src="js/controllers/SubmitController.js"></script>
+<!-- Directives -->
+<script src="js/services/websocket.js"></script>
 </body>
 </html>
