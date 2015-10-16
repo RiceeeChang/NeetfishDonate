@@ -67,9 +67,12 @@
                       <div class="form-group">
                         <label class="col-sm-4 control-label">Donate Amount</label>
                         <div class="col-sm-5">
-                          <input type="text" name="money" ng-model="money" class="form-control" placeholder="給錢 快給錢" />
+                          <input type="number" name="money" ng-model="money" class="form-control" placeholder="給錢 快給錢" />
                         </div>
                       </div>
+                      <div class="row"><div class="col-sm-offset-4 col-sm-8">
+                        <p class="text-left" style="color:#848484"><small>(使用信用卡有2.8%(最低5元)的手續費不會算入金額倒數)</small></p>
+                      </div></div>
                       <div class="form-group">
                         <label class="col-sm-4 control-label">Donate Message</label>
                         <div class="col-sm-5">
@@ -77,6 +80,13 @@
                         </div>
                       </div>
                       <!--<input type="submit" class="btn btn-default" value="Donate" />-->
+
+                      <div class="alert alert-danger" role="alert" ng-show="alerting">
+                        <div class="row">
+                          <div class="col-lg-4"><strong>[Warning!]</strong></div>
+                          <div class="col-lg-4"><span class="text-left" ng-bind="errorMsg"></span></div>
+                        </div>
+                      </div>
                     </div>
 
                     
@@ -88,7 +98,7 @@
                         <button type="button" class="btn btn-primary" ng-hide="donating" ng-click="doDonate()">Yes, I will.</button>
 
                         <!--<input type="submit" class="btn btn-primary" value="Donate" ng-show="donating" ng-click="submit()"/>-->
-                        <button type="button" class="btn btn-primary" ng-click="submit()" ng-show="donating" data-dismiss="modal">Donate</button>
+                        <button type="button" class="btn btn-primary" ng-click="submit()" ng-show="donating">Donate</button>
                       </center>
                     </div>
                   </form>

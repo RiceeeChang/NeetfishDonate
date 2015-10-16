@@ -1,57 +1,43 @@
 app.controller('MainController', ['$scope', 'donateMsg', function($scope, donateMsg){
     $scope.donateMsg = donateMsg;
     $scope.donating = false;
+    
     $scope.dname  = "";
     $scope.money = "";
     $scope.msg   = "";
+    
     $scope.modal_page = 1;
     $scope.allpayform = "";
+
+    $scope.errorMsg = "";
+    $scope.alerting = false;
 
     $scope.doDonate = function(){
         $scope.donating = true;
     }
     $scope.cancelDonate = function(){
         $scope.donating = false;
+        $scope.alerting = false;
+        $scope.dname = "";
+        $scope.money = "";
+        $scope.msg   = "";
     }
 
     $scope.submit = function(){
-        console.log($scope.dname, $scope.money, $scope.msg);
+        //console.log($scope.dname, $scope.money, $scope.msg);
         
-        /*if ($scope.dname != "" && 
-            $scope.money != "" &&
-            $scope.msg   != ""){
-            
-            $.ajax({
-                type: "POST",
-                url: "http://custommaid3d2.net:8888/donate",
-                //crossDomain: true,
-                data: JSON.stringify({
-                    name:  $scope.dname,
-                    money: $scope.money,
-                    msg:   $scope.msg
-                }),
-                //contentType: "application/json",
-                //dataType: "json",
-                success: function(response){
-                    $scope.allpayform = response;
-
-                    console.log($scope.allpayform)
-
-                    $scope.dname  = "";
-                    $scope.money = "";
-                    $scope.msg   = "";
-                }
-            });
-        }*/
-        if($scope.dname != "" && $scope.money != ""){
+        if($scope.dname != "" && Number.isInteger($scope.money) && $scope.money >=30){
             document.donateForm.submit();
             $scope.cancelDonate();
-            $scope.dname = "";
-            $scope.money = "";
-            $scope.msg   = "";
+            $('#myModal').modal('toggle');
+        }else{
+            if($scope.dname == "")
+                $scope.errorMsg = "你是沒名字喔?";
+            else if($scope.money == "")
+                $scope.errorMsg = "阿 錢哩錢哩?";
+            else if($scope.money < 30)
+                $scope.errorMsg = "好小氣唷 不能少於30元";
+            $scope.alerting = true;
         }
-        
     }
-
-
 }]);
