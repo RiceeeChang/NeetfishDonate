@@ -1,5 +1,7 @@
 app.controller('MainController', ['$scope', 'donateMsg', function($scope, donateMsg){
     $scope.donateMsg = donateMsg;
+    
+    $scope.donatable = true;
     $scope.donating = false;
     
     $scope.dname  = "";
@@ -11,6 +13,14 @@ app.controller('MainController', ['$scope', 'donateMsg', function($scope, donate
 
     $scope.errorMsg = "";
     $scope.alerting = false;
+
+    $scope.donate = function(){
+        if(donateMsg.totalmoney == 0){
+            $scope.donatable = false;
+        }else{
+            $('#myModal').modal('toggle');
+        }
+    }
 
     $scope.doDonate = function(){
         $scope.donating = true;
